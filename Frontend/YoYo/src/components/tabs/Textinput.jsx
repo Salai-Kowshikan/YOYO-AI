@@ -1,26 +1,28 @@
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { GeneralContext } from "@/context/GeneralContext";
 import api from "@/api/v1";
 
 function Textinput() {
   const [data, setData] = useState(null);
+  const { setLoading } = useContext(GeneralContext);
   const processData = async () => {
     try {
+      setLoading(true);
       console.log("Processing data");
-      const response = await api.post(
-        "/generate",
-        {
-          model: "llama3.1",
-          prompt: "what is the meaning of life?",
-          system: "give the response as a JSON",
-          stream: false,
-        }
-      );
+      const response = await api.post("/generate", {
+        model: "llama3.1",
+        prompt: "what is the meaning of life?",
+        system: "give the response as a JSON",
+        stream: false,
+      });
       console.log(response.data);
+      setLoading(false);
     } catch (error) {
       console.log(error);
+      setLoading(false);
     }
   };
   return (

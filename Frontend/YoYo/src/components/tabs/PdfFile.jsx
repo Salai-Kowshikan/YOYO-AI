@@ -1,13 +1,14 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import api from "@/api/v1";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { systemPrompt } from "@/constants/prompt";
+import { GeneralContext } from "@/context/GeneralContext";
 
-function PdfFile() {
+function PdfFile({setTextData}) {
   const [file, setFile] = useState(null);
   const [fileName, setFileName] = useState("No file selected");
+  const { setLoading } = useContext(GeneralContext);
 
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
@@ -25,21 +26,21 @@ function PdfFile() {
 
     const formData = new FormData();
     formData.append("file", file);
-    formData.append("model", "llama3.1");
-    formData.append("system", systemPrompt);
-    formData.append("stream", "false");
 
     try {
+      setLoading(true);
       console.log("Processing data");
       console.log(formData);
-      // const response = await api.post("/generate", formData, {
-      //   headers: {
-      //     "Content-Type": "multipart/form-data",
-      //   },
-      // });
-      // console.log(response.data);
+      const response = await api.post("/pdf", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      setTextData(response.data.response)
+      setLoading(false);
     } catch (error) {
       console.log(error);
+      setLoading(false);
     }
   };
 

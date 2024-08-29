@@ -3,8 +3,28 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Textinput from "@/components/tabs/Textinput";
 import TextFile from "@/components/tabs/TextFile";
 import PdfFile from "@/components/tabs/PdfFile";
+import { useEffect, useState } from "react";
+import DownloadJson from "@/components/DownloadJson";
 
 function Home() {
+  const [jsonData, setJsonData] = useState(null);
+  const [textData, setTextData] = useState("");
+
+  const extractAndParseJson = (text) => {
+    if(text === "") return
+    const direct =  JSON.parse(text)
+    console.log(direct)
+    setJsonData(direct)
+  };
+
+  useEffect(() => {
+    extractAndParseJson(textData)
+  },[textData])
+
+  useEffect(() => {
+    console.log(jsonData)
+  },[jsonData])
+
   return (
     <>
       <div className="flex items-center justify-center flex-col p-12 gap-6">
@@ -30,9 +50,10 @@ function Home() {
             <TextFile />
           </TabsContent>
           <TabsContent value="pdf" className="w-full flex items-center justify-center">
-            <PdfFile />
+            <PdfFile setTextData={setTextData} />
           </TabsContent>
         </Tabs>
+        <DownloadJson data={jsonData} />
         <DataVisualization />
       </div>
     </>
