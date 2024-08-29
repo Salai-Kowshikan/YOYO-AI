@@ -7,23 +7,31 @@ import { useEffect, useState } from "react";
 import DownloadJson from "@/components/DownloadJson";
 
 function Home() {
-  const [jsonData, setJsonData] = useState(null);
+  const [jsonData, setJsonData] = useState([]);
   const [textData, setTextData] = useState("");
 
   const extractAndParseJson = (text) => {
-    if(text === "") return
-    const direct =  JSON.parse(text)
-    console.log(direct)
-    setJsonData(direct)
+    if (text === "") return;
+    try {
+      const direct = JSON.parse(text);
+      setJsonData((prevJsonData) => [...prevJsonData, direct]);
+    } catch (error) {
+      console.error("Failed to parse JSON:", error);
+    }
   };
 
   useEffect(() => {
-    extractAndParseJson(textData)
-  },[textData])
+    setJsonData([]);
+    if (textData.length !== 0) {
+      textData.forEach((text) => {
+        extractAndParseJson(text);
+      });
+    }
+  }, [textData]);
 
   useEffect(() => {
-    console.log(jsonData)
-  },[jsonData])
+    console.log(jsonData);
+  }, [jsonData]);
 
   return (
     <>
@@ -43,13 +51,22 @@ function Home() {
               PDF
             </TabsTrigger>
           </TabsList>
-          <TabsContent value="input" className="w-full flex items-center justify-center">
+          <TabsContent
+            value="input"
+            className="w-full flex items-center justify-center"
+          >
             <Textinput />
           </TabsContent>
-          <TabsContent value="text" className="w-full flex items-center justify-center">
+          <TabsContent
+            value="text"
+            className="w-full flex items-center justify-center"
+          >
             <TextFile />
           </TabsContent>
-          <TabsContent value="pdf" className="w-full flex items-center justify-center">
+          <TabsContent
+            value="pdf"
+            className="w-full flex items-center justify-center"
+          >
             <PdfFile setTextData={setTextData} />
           </TabsContent>
         </Tabs>
