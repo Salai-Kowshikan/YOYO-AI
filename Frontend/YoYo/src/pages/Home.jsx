@@ -54,7 +54,7 @@ function Home() {
           </TabsContent>
         </Tabs>
         <DownloadJson data={jsonData} />
-        <DataVisualization />
+        <DataVisualization jsondata={jsonData} />
       </div>
     </>
   );
