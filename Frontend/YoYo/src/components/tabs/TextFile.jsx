@@ -21,7 +21,7 @@ function TextFile() {
       reader.readAsText(file);
     }
   };
-  
+
   const processData = async () => {
     try {
       console.log("Processing data");
@@ -31,10 +31,7 @@ function TextFile() {
         system: systemPrompt,
         stream: false,
       };
-      const response = await api.post(
-        "/generate",
-        request
-      );
+      const response = await api.post("/generate", request);
       console.log(response.data);
     } catch (error) {
       console.log(error);
@@ -42,23 +39,21 @@ function TextFile() {
   };
   return (
     <div className="flex flex-col gap-5 w-3/4 items-center justify-center">
-      <div className="flex gap-4 items-center w-full">
-        <Label className="flex-1">Upload text-files</Label>
-        <Input
-          type="file"
-          id="file-input"
-          name="file-input"
-          className="hidden"
-          accept=".txt"
-          onChange={handleFileChange}
-        />
-        <Label
-          htmlFor="file-input"
-          className="flex-1 bg-blue-500 text-white p-2 rounded cursor-pointer text-center"
-        >
-          {fileName === "No file selected" ? "Upload a file" : fileName}
-        </Label>
-      </div>
+      <Label className=" ">Upload text-files</Label>
+      <Input
+        type="file"
+        id="file-input"
+        name="file-input"
+        className="hidden"
+        accept=".txt"
+        onChange={handleFileChange}
+      />
+      <Label
+        htmlFor="file-input"
+        className="bg-blue-500 text-white p-2 rounded cursor-pointer text-center"
+      >
+        {fileName === "No file selected" ? "Upload a file" : fileName}
+      </Label>
       <Button onClick={processData}>Process</Button>
     </div>
   );
