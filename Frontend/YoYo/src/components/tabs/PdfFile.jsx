@@ -31,12 +31,12 @@ function PdfFile({setTextData}) {
       setLoading(true);
       console.log("Processing data");
       console.log(formData);
-      const response = await api.post("/pdf", formData, {
+      const response = await api.post("/bulk_pdfs", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       });
-      setTextData(response.data.response)
+      setTextData(response.data)
       setLoading(false);
     } catch (error) {
       console.log(error);
