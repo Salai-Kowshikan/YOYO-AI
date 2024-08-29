@@ -24,7 +24,7 @@ function Textinput() {
     }
   };
   return (
-    <div className="flex flex-col gap-5 w-3/4 items-center justify-center">
+    <div className="flex flex-col p-8 gap-5 w-3/4 items-center justify-center">
       <div className="flex gap-4 items-center w-full">
         <Label htmlFor="text-input" className="flex-1">
           Paste the conversation here:
