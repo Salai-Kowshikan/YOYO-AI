@@ -1,0 +1,301 @@
+{
+    "conv1":{
+        "Customer Requirements": {
+          "CarType": "Compact SUV",
+          "FuelType": "Diesel",
+          "Color": "White",
+          "DistanceTravelled": null,
+          "MakeYear": null,
+          "Transmission Type": "Manual or Automatic"
+        },
+        "Company Policies": {
+          "FreeRCTransfer": false,
+          "5-DayMoney Back Guarantee": true,
+          "FreeRSAfor One Year": false,
+          "Return Policy": false
+        },
+        "Customer Objections": {
+          "Refurbishment Quality": null,
+          "CarIssues": null,
+          "Price Issues": "Rs. 800,000 budget",
+          "Customer Experience Issues": "Long wait time, salesperson behavior"
+        },
+        "Extras": {
+          "Warranty Details": "Engine and gearbox for one year or 15,000 km, AC and electricals for three months or 5,000 km"
+        }
+      },
+    "conv2": {
+        "Customer Requirements": {
+          "Budget": "Rs. 600,000",
+          "Primary Concerns": ["Safety", "Proper Maintenance"],
+          "Vehicle Size or Type Preference": null
+        },
+        "Company Policies": {
+          "Thorough Inspection": true,
+          "Warranty Details": {
+            "Engine and Gearbox Warranty": {
+              "Duration": "1 year or 15,000 kilometers"
+            },
+            "AC, Electrical, and Fuel Systems Coverage": {
+              "Duration": "3 months or 5,000 kilometers"
+            }
+          },
+          "Money-Back Guarantee": true,
+          "Return Policy": null
+        },
+        "Customer Objections": [
+          {
+            "Scratches and Paint Job Concerns": [
+              "Minor scratches",
+              "Not perfect paint job"
+            ],
+            "Engine Maintenance Issues": null
+          },
+          { "Resale Value Concerns": null }
+        ],
+        "Extras": [
+          { "Vehicle Options": ["Honda City", "Maruti Suzuki Ciaz"] },
+          {
+            "Features and Condition Details": {
+              "Honda City": {
+                "Mileage": "1,20,000 kilometers",
+                "Mechanical Condition": "Excellent",
+                "Additional Information": [
+                  "Few minor scratches",
+                  "Not perfect paint job"
+                ]
+              },
+              "Maruti Suzuki Ciaz": {
+                "Mileage": null,
+                "Mechanical Condition": "Good",
+                "Additional Information": ["Quieter engine", "Cleaner interior"]
+              }
+            }
+          },
+          {
+            "Buy-Back Guarantee Details": {
+              "Honda City": {
+                "Year 1": "Rs. 5,00,000",
+                "Year 2": "Rs. 4,32,000",
+                "Year 3": "Rs. 4,00,000"
+              }
+            }
+          },
+          {
+            "Test Drive Details": {
+              "Option 1": "Come to our showroom",
+              "Option 2": "Home test drive (available within one or two days)"
+            }
+          }
+        ]
+      },
+    "conv3":{
+      "Customer Requirements": {
+        "CarType": "Petrol",
+        "FuelType": "Petrol",
+        "Color": null,
+        "DistanceTravelled": null,
+        "MakeYear": [2017, 2014],
+        "Transmission Type": null
+      },
+      "Company Policies": {
+        "FreeRCTransfer": true,
+        "5-DayMoney Back Guarantee": true,
+        "FreeRSAfor One Year": true,
+        "Return Policy": true
+      },
+      "Customer Objections": [
+        "Refurbishment Quality",
+        "CarIssues",
+        "Price Issues",
+        "Customer Experience Issues (e.g., long wait time, salesperson behavior)"
+      ],
+      "Extras": {
+        "Budget": "3.5 lakhs",
+        "Vehicle Options": ["I-10", "Eon", "Alto"],
+        "Warranty": "One year guarantee for engine and gearbox"
+      }
+    },
+    "conv4":{
+      "Customer Requirements": {
+        "CarType": ["Hatchback", "SUV"],
+        "FuelType": [],
+        "Color": [],
+        "DistanceTravelled": [],
+        "MakeYear": [2019, 2022],
+        "Transmission Type": ["automatic"]
+      },
+      "Company Policies": {
+        "FreeRCTransfer": false,
+        "5-DayMoneyBackGuarantee": false,
+        "FreeRSAforOneYear": false,
+        "Return Policy": []
+      },
+      "Customer Objections": {
+        "Refurbishment Quality": true,
+        "CarIssues": ["scratches", "dents"],
+        "Price Issues": [690000, 800000],
+        "Customer Experience Issues": ["long wait time", "salesperson behavior"]
+      },
+      "Extras": [
+        { "make": "Swift", "model": "VXI" },
+        { "year": "2019", "mileage": "12 years" },
+        { "condition": "single-owner vehicle" },
+        { "modification": "aftermarket paint job" }
+      ]
+    },
+    "conv5":{
+      "Customer Requirements": {
+        "CarType": "Diesel",
+        "PriceRange": "6-8 lakhs",
+        "Features": ["Warranty", "RC transfer included"],
+        "Location": "West Bengal"
+      },
+      "Salesperson Information": {
+        "Name": "Not provided",
+        "Phone Number": "9060",
+        "Loan Number": "9******66"
+      },
+      "Vehicle Details": {
+        "Make": "Not specified",
+        "Model": "2015 model",
+        "Year": "2015",
+        "Mileage": "82,000 km driven",
+        "Condition": ["Scratches on paint job", "Minor cleanliness issue"],
+        "Engine Noise": "Yes"
+      },
+      "Purchase Details": {
+        "Price": "9 lakhs",
+        "Inclusions": ["Warranty", "RC transfer included", "3rd party insurance"],
+        "Return Policy": "5 days, no questions asked"
+      },
+      "Additional Services": {
+        "Buy Back Option": "Yes",
+        "Service History": "Last service done at 60,000 km in showroom",
+        "Free Service Upto": "10,000 km"
+      }
+    },
+    "conv6":{
+      "Customer Requirements": {
+        "CarType": "SUV",
+        "FuelType": "Diesel",
+        "Color": "",
+        "DistanceTravelled": "55,000 km",
+        "MakeYear": "2014",
+        "Transmission Type": "Manual"
+      },
+      "Company Policies": {
+        "FreeRCTransfer": "Yes",
+        "5-DayMoneyBack Guarantee": "No",
+        "FreeRSAforOneYear": "No",
+        "Return Policy": "Yes"
+      },
+      "Customer Objections": {
+        "Refurbishment Quality": "Scratches on the paint, interior not clean",
+        "CarIssues": "Noise from the engine",
+        "Price Issues": "",
+        "Customer Experience Issues": ""
+      },
+      "Extras": {
+        "Service Reports": "Available",
+        "Mileage": "12-13 km/l",
+        "Engine Type": "1.4-litre"
+      }
+    },
+    "conv7":{
+        "Customer Requirements": {
+          "CarType": "Tigor",
+          "FuelType": null,
+          "Color": null,
+          "DistanceTravelled": null,
+          "MakeYear": null,
+          "Transmission Type": null
+        },
+        "Company Policies": {
+          "FreeRCTransfer": true,
+          "5-DayMoneyBackGuarantee": false,
+          "FreeRSAforOne Year": true,
+          "Return Policy": true
+        },
+        "Customer Objections": {
+          "RefurbishmentQuality": true,
+          "CarIssues": false,
+          "Price Issues": true,
+          "CustomerExperienceIssues": true
+        },
+        "Extras": {
+          "ServiceHistory": "up to 34,000 km",
+          "Mileage Claimed": "23 km/l",
+          "Realistic Mileage": "19-20 km/l"
+        }
+      },
+      "conv8":{
+        "Customer Requirements": {
+          "CarType": "Sedan",
+          "FuelType": null,
+          "Color": null,
+          "Distance Travelled": 41000,
+          "MakeYear": 2018,
+          "Transmission Type": "Automatic"
+        },
+        "Company Policies": {
+          "FreeRCTransfer": true,
+          "5-DayMoney Back Guarantee": false,
+          "FreeRSAfor One Year": false,
+          "Return Policy": true
+        },
+        "Customer Objections": {
+          "Refurbishment Quality": null,
+          "CarIssues": null,
+          "Price Issues": true,
+          "Customer Experience Issues": ["long wait time", "salesperson behavior"]
+        },
+        "Extras": {}
+      },
+    "conv9":{
+        "Customer Requirements": {
+          "CarType": "Hatchback",
+          "FuelType": "",
+          "Color": "",
+          "Distance Travelled": "",
+          "MakeYear": "",
+          "Transmission Type": ""
+        },
+        "Company Policies": {
+          "FreeRCTransfer": true,
+          "5-DayMoney Back Guarantee": false,
+          "FreeRSAfor One Year": false,
+          "Return Policy": false
+        },
+        "Customer Objections": {
+          "Refurbishment Quality": false,
+          "CarIssues": true,
+          "Price Issues": true,
+          "Customer Experience Issues": true
+        },
+        "Extras": {
+          "Test Drive Duration": "",
+          "Salesperson Name": "Pooch Rai",
+          "Contact Number": "7******139"
+        }
+      },
+      "conv10":  {
+        "Customer Requirements": {
+          "CarType": "Sedan",
+          "FuelType": "Petrol",
+          "Color": "Red",
+          "Distance Travelled": "80,000 miles",
+          "MakeYear": "2010",
+          "Transmission Type": "Manual"
+        },
+        "Company Requirements": {
+          "Warranty for engine and gearbox": "1 year",
+          "Warranty for AC, electronics, fuel system, sensors": "1 year",
+          "Warranty for tires": "3 months or 5000 kms"
+        },
+        "Other Information": {
+          "Spare parts needed": "Timing belt",
+          "Price range": "Rs. 32 lakhs to Rs. 40 lakhs"
+        }
+      }
+}
