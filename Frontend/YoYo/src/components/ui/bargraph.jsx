@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import {
   BarChart,
   Bar,
@@ -7,7 +7,7 @@ import {
   CartesianGrid,
   Tooltip,
   Cell,
-  ResponsiveContainer,
+  Legend,
 } from "recharts";
 import {
   Card,
@@ -17,90 +17,64 @@ import {
   CardDescription,
 } from "@/components/ui/card";
 
+// Define colors for different types
+const COLORS = {
+  SUV: "#8884d8",
+  Sedan: "#82ca9d",
+  Hatchback: "#ffc658",
+  // Add more colors as needed
+};
+
 export function Bargraph({ data }) {
-  const COLORS = {
-    SUV: "#8884d8",
-    Sedan: "#82ca9d",
-    Hatchback: "#ffc658",
-  };
-
-  const barData = Object.keys(data).map((key) => ({
-    name: key,
-    value: data[key],
-  }));
-
-  // Extract unique car types from barData to filter COLORS
-  const displayedCarTypes = new Set(barData.map((item) => item.name));
-
-  const filteredColors = Object.entries(COLORS).filter(([key]) =>
-    displayedCarTypes.has(key)
-  );
+  // Convert the data from object format to an array of objects
+  const barData = React.useMemo(() => {
+    // Handle both arrays and strings in data
+    return Object.entries(data).map(([key, value]) => ({
+      name: key,
+      value: Array.isArray(value)
+        ? value.length
+        : typeof value === "string"
+        ? value.length
+        : value,
+    }));
+  }, [data]);
 
   if (barData.length === 0) {
     return <div>No data available</div>;
   }
 
-  useEffect(() => {
-    console.table(barData);
-  }, [barData]);
-
-  const renderCustomLegend = () => (
-    <div
-      style={{ display: "flex", justifyContent: "center", marginTop: "10px" }}
-    >
-      {filteredColors.map(([key, color]) => (
-        <div
-          key={key}
-          style={{ display: "flex", alignItems: "center", margin: "0 10px" }}
-        >
-          <div
-            style={{
-              width: 20,
-              height: 20,
-              backgroundColor: color,
-              marginRight: 5,
-            }}
-          />
-          <span>{key}</span>
-        </div>
-      ))}
-    </div>
-  );
-
   return (
     <Card>
       <CardHeader>
         <CardTitle>Bar Graph</CardTitle>
-        <CardDescription>Car Type Preferences</CardDescription>
+        <CardDescription>Distribution by Type</CardDescription>
       </CardHeader>
       <CardContent>
-        <ResponsiveContainer width="100%" height={300}>
-          <BarChart data={barData}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis
-              dataKey="name"
-              label={{ value: "Car Type", position: "insideBottom", dy: 8 }}
-            />
-            <YAxis
-              label={{
-                value: "Count",
-                angle: -90,
-                position: "insideLeft",
-                dx: 10,
-              }}
-            />
-            <Tooltip />
-            <Bar dataKey="value" radius={4}>
-              {barData.map((entry, index) => (
-                <Cell
-                  key={`cell-${index}`}
-                  fill={COLORS[entry.name] || "#8884d8"}
-                />
-              ))}
-            </Bar>
-          </BarChart>
-        </ResponsiveContainer>
-        {renderCustomLegend()}
+        <BarChart width={500} height={300} data={barData}>
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis
+            dataKey="name"
+            label={{ value: "Type", position: "insideBottom", dy: 10 }}
+          />
+          <YAxis
+            label={{
+              value: "Count",
+              angle: -90,
+              position: "insideLeft",
+              dx: 10,
+            }}
+          />
+          <Tooltip />
+          <Legend />
+          <Bar dataKey="value" radius={4}>
+            {barData.map((entry, index) => (
+              <Cell
+                key={`cell-${index}`}
+                fill={COLORS[entry.name] || "#8884d8"}
+              />
+            ))}
+          </Bar>
+        </BarChart>
       </CardContent>
     </Card>
   );

@@ -22,24 +22,32 @@ import {
   SelectItem,
 } from "@/components/ui/select";
 
-// Define colors for different types (you can customize these colors)
+// Define colors for different categories
 const COLORS = {
-  White: "#8884d8",
-  Red: "#82ca9d",
-  Black: "#ffc658",
-  Blue: "#ff7300",
-  Green: "#ff0000",
-  Yellow: "#00ff00",
-  Purple: "#0000ff",
-  Orange: "#ff00ff",
-  Brown: "#00ffff",
-  Pink: "#ff0000",
-  Grey: "#00ff00",
-  Cyan: "#ff00ff",
-  // Add more colors as needed for other keys
+  color: {
+    White: "#8884d8",
+    Red: "#82ca9d",
+    Black: "#ffc658",
+    Blue: "#ff7300",
+    Green: "#ff0000",
+    Yellow: "#00ff00",
+    Purple: "#0000ff",
+    Orange: "#ff00ff",
+    Brown: "#00ffff",
+    Pink: "#ff0000",
+    Grey: "#00ff00",
+    Cyan: "#ff00ff",
+  },
+  transmission: {
+    automatic: "#E2BFD9",
+    manual: "#C8A1E0",
+  },
 };
 
-export function Piechart({ data }) {
+export function Piechart({ data, label }) {
+  // Select the color set based on the label
+  const colorSet = COLORS[label] || COLORS.color;
+
   // Convert the data from object format to an array of objects
   const chartData = React.useMemo(() => {
     return Object.keys(data).map((key) => ({
@@ -83,14 +91,16 @@ export function Piechart({ data }) {
       <CardHeader className="flex-row items-start space-y-0 pb-0">
         <div className="grid gap-1">
           <CardTitle>Pie Chart</CardTitle>
-          <CardDescription>Distribution by Color</CardDescription>
+          <CardDescription>
+            Distribution by {label.charAt(0).toUpperCase() + label.slice(1)}
+          </CardDescription>
         </div>
         <Select value={activeType} onValueChange={setActiveType}>
           <SelectTrigger
             className="ml-auto h-7 w-[130px] rounded-lg pl-2.5"
             aria-label="Select a value"
           >
-            <SelectValue placeholder="Select type" />
+            <SelectValue placeholder={`Select ${label}`} />
           </SelectTrigger>
           <SelectContent align="end" className="rounded-xl">
             {types.map((key) => {
@@ -106,7 +116,7 @@ export function Piechart({ data }) {
                     <span
                       className="flex h-3 w-3 shrink-0 rounded-sm"
                       style={{
-                        backgroundColor: COLORS[key] || "#8884d8",
+                        backgroundColor: colorSet[key] || "#8884d8",
                       }}
                     />
                     {config?.label}
@@ -143,7 +153,7 @@ export function Piechart({ data }) {
               {chartData.map((entry, index) => (
                 <Cell
                   key={`cell-${index}`}
-                  fill={COLORS[entry.type] || "#8884d8"}
+                  fill={colorSet[entry.type] || "#8884d8"}
                 />
               ))}
               <Label
@@ -172,7 +182,7 @@ export function Piechart({ data }) {
                           y={(viewBox.cy || 0) + 24}
                           className="fill-muted-foreground"
                         >
-                          Colours
+                          {label === "color" ? "Colors" : "Transmissions"}
                         </tspan>
                       </text>
                     );

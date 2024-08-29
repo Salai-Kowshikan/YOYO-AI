@@ -11,7 +11,7 @@ function processData({}) {
         Color: ["White"],
         DistanceTravelled: "",
         MakeYear: [2021],
-        "Transmission Type": ["automatic"],
+        "Transmission Type": ["automatic", "manual"],
       },
       CompanyPolicies: {
         FreeRCTransfer: false,
@@ -41,7 +41,7 @@ function processData({}) {
         Color: ["Red"],
         DistanceTravelled: [120000],
         MakeYear: [2015],
-        "Transmission Type": ["automatic"],
+        "Transmission Type": ["manual"],
       },
       CompanyPoliciesDiscussed: [
         { FreeRCTransfer: false },
@@ -156,7 +156,8 @@ function DataVisualization(jsondata) {
   return (
     <div>
       <Bargraph data={carTypeCounts} />
-      <Piechart data={colorCounts} />
+      <Piechart data={colorCounts} label = {"color"} />
+      <Piechart data={transmissionTypeCounts} label = {"transmission"} />
     </div>
   );
 }
