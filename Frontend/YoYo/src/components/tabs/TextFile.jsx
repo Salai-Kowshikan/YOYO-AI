@@ -1,13 +1,15 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import api from "@/api/v1";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { systemPrompt } from "@/constants/prompt";
+import { GeneralContext } from "@/context/GeneralContext";
 
 function TextFile() {
   const [fileContent, setFileContent] = useState("");
   const [fileName, setFileName] = useState("No file selected");
+  const { setLoading } = useContext(GeneralContext);
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -24,6 +26,7 @@ function TextFile() {
 
   const processData = async () => {
     try {
+      setLoading(true);
       console.log("Processing data");
       const request = {
         model: "llama3.1",
@@ -31,15 +34,17 @@ function TextFile() {
         system: systemPrompt,
         stream: false,
       };
-      const response = await api.post("/generate", request);
+      const response = await api.post("/text", request);
       console.log(response.data);
+      setLoading(false);
     } catch (error) {
       console.log(error);
+      setLoading(false);
     }
   };
   return (
     <div className="flex flex-col p-8 gap-5 w-3/4 items-center justify-center">
-      <Label className=" ">Upload text-files</Label>
+      <Label className="">Upload text-files</Label>
       <Input
         type="file"
         id="file-input"

@@ -6,9 +6,9 @@ import requests
 import logging
 
 def prompt(conversation):
-        print(conversation)
-        print(type(conversation))
-        system_message = "The above convo deals with a car dealing process and I want it to be summarized in the following json format: Customer Requirements for a Car: CarType(Hatchback, SUV, Sedan), FuelType, Color, Distance Travelled, MakeYear, Transmission Type. 2 Company Policies Discussed: FreeRCTransfer, 5-DayMoney Back Guarantee, FreeRSAfor One Year, Return Policy. 3. Customer Objection: Refurbishment Quality, CarIssues, Price Issues, Customer Experience Issues (e.g., long wait time, salesperson behaviour). Response should contain the proper json format that can be parsed using json parser."
+        # print(conversation)
+        # print(type(conversation))
+        system_message = "The above convo deals with a car dealing process and I want it to be summarized in the following json format: Customer Requirements for a Car: CarType(Hatchback, SUV, Sedan), FuelType, Color, Distance Travelled, MakeYear, Transmission Type. 2 Company Policies Discussed: FreeRCTransfer, 5-DayMoney Back Guarantee, FreeRSAfor One Year, Return Policy. 3. Customer Objection: Refurbishment Quality, CarIssues, Price Issues, Customer Experience Issues (e.g., long wait time, salesperson behaviour). the above given is just a sample format and you can add further fields if you find more informational data from the customer that the company can use on the passage. further fields you find can be added to a key named extras within which you can give every values as an array and  the response key must contain only the json of all the details mentioned in the given passage so than it can be parsed using a json parser......never start the response with here is the summary of the json or something like this. Please do not include any other text like Here is a summary or anything. In the response only JSON should be present"
 
         prompt_data = {
             "model": "llama3.1",
