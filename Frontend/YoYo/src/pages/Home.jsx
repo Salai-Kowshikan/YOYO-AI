@@ -3,8 +3,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Textinput from "@/components/tabs/Textinput";
 import TextFile from "@/components/tabs/TextFile";
 import PdfFile from "@/components/tabs/PdfFile";
-import { Bargraph } from "@/components/ui/bargraph";
-import { Piechart } from "@/components/ui/piechart";
 
 function Home() {
   return (

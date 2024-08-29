@@ -1,9 +1,12 @@
 import React from 'react'
+import { Bargraph } from "@/components/ui/bargraph";
+import { Piechart } from "@/components/ui/piechart";
 
 function DataVisualization() {
   return (
     <div>
-      Your data visualization would go here
+      <Bargraph />
+      <Piechart />
     </div>
   )
 }
