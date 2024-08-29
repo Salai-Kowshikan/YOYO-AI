@@ -55,7 +55,7 @@ function Home() {
             value="input"
             className="w-full flex items-center justify-center"
           >
-            <Textinput />
+            <Textinput setTextData={setTextData} />
           </TabsContent>
           <TabsContent
             value="text"

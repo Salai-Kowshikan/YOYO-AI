@@ -53,7 +53,7 @@ def prompt(conversation):
     }
 
     try:
-        external_url = "http://10.11.148.18:11434/api/generate"
+        external_url = "http://<replace-with-your-url>/api/generate"
         external_response = requests.post(external_url, json=prompt_data)
 
         if external_response.status_code == 200:
