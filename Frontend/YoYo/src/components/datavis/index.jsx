@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Bargraph } from "@/components/ui/bargraph";
 import { Piechart } from "@/components/ui/piechart";
 
@@ -10,7 +10,9 @@ function processData({ jsondata }) {
   const colorCounts = {};
   const transmissionTypeCounts = {};
 
-  const dataArray = Array.isArray(jsondata) ? jsondata : [jsondata];
+  useEffect(() => {
+    console.log("jsondata changed:", jsondata);
+  }, [jsondata]);
 
   jsondata.forEach((entry) => {
     const { CustomerRequirements } = entry;
@@ -59,8 +61,8 @@ function DataVisualization(jsondata) {
 
   return (
     <div>
-      <Bargraph data={carTypeCounts} />
-      <Piechart data={jsondata} />
+      {/* <Bargraph data={carTypeCounts} />
+      <Piechart data={jsondata} /> */}
     </div>
   );
 }
