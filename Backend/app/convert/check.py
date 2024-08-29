@@ -8,6 +8,6 @@ def pdf_to_text(pdf_path):
     
     return text
 
-pdf_path = r"C:\Users\jeyav\Downloads\Untitled document.pdf"
+pdf_path = r"C:\Users\jeyav\Downloads\sample.pdf"
 text = pdf_to_text(pdf_path)
 print(text)

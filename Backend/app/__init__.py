@@ -4,6 +4,6 @@ from flask_cors import CORS
 app=Flask(__name__)
 CORS(app)
 
-from .routes import hello 
+from .routes import hello, pdf
 if __name__ == '__main__':
     app.run(debug=True) 
