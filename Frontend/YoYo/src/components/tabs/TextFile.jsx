@@ -3,10 +3,9 @@ import api from "@/api/v1";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { systemPrompt } from "@/constants/prompt";
 import { GeneralContext } from "@/context/GeneralContext";
 
-function TextFile() {
+function TextFile({setTextData}) {
   const [fileContent, setFileContent] = useState("");
   const [fileName, setFileName] = useState("No file selected");
   const { setLoading } = useContext(GeneralContext);
@@ -29,13 +28,11 @@ function TextFile() {
       setLoading(true);
       console.log("Processing data");
       const request = {
-        model: "llama3.1",
-        prompt: fileContent,
-        system: systemPrompt,
-        stream: false,
+        text : fileContent
       };
       const response = await api.post("/text", request);
-      console.log(response.data);
+      console.log(response.data)
+      setTextData(response.data)
       setLoading(false);
     } catch (error) {
       console.log(error);

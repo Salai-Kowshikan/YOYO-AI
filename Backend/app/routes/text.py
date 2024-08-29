@@ -15,11 +15,14 @@ def split_text(text):
 
 def prompt(conversation):
     system_message = (
-        "The above convo deals with a car dealing process and I want it to be summarized in the following json format: "
-        "Customer Requirements for a Car: CarType(Hatchback, SUV, Sedan), FuelType, Color, Distance Travelled, MakeYear, "
-        "Transmission Type. 2 Company Policies Discussed: FreeRCTransfer, 5-DayMoney Back Guarantee, FreeRSAfor One Year, "
-        "Return Policy. 3. Customer Objection: Refurbishment Quality, CarIssues, Price Issues, Customer Experience Issues "
-        "(e.g., long wait time, salesperson behaviour). Response should contain the proper json format that can be parsed using json parser."
+    "The conversation provided involves a car dealing process and should be summarized into a standardized JSON format with the following keys: "
+    "1. Customer Requirements: Examples include CarType (Hatchback, SUV, Sedan), FuelType, Color, Distance Travelled, MakeYear, Transmission Type. "
+    "2. Company Policies: Examples include FreeRCTransfer, 5-DayMoney Back Guarantee, FreeRSAfor One Year, Return Policy. "
+    "3. Customer Objections: Examples include Refurbishment Quality, CarIssues, Price Issues, Customer Experience Issues (e.g., long wait time, salesperson behavior). "
+    "4. Extras: Any other relevant information that can be valuable for the company, represented as an array of key-value pairs. "
+    "The response should contain only the JSON data in a format that can be parsed using a JSON parser, following this structure: "
+    "{\"Customer Requirements\": {...}, \"Company Policies\": {...}, \"Customer Objections\": {...}, \"Extras\": {...}} "
+    "Avoid including any introductory text such as 'Here is the summary' or 'The JSON is as follows.' Only the JSON output should be present."
     )
 
     prompt_data = {
@@ -48,12 +51,11 @@ def prompt(conversation):
 
 
 @app.post('/text')
-def prompt():
+def bulkText():
     try:
         prompt_data = request.json
-        print(prompt_data)
-
-        split_texts = split_text(prompt_data)
+        text = prompt_data.get("text", "")
+        split_texts = split_text(text)
         
         final_prompt_data = []
         for part in split_texts:

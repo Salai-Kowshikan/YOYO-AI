@@ -17,6 +17,7 @@ function Home() {
       setJsonData((prevJsonData) => [...prevJsonData, direct]);
     } catch (error) {
       console.error("Failed to parse JSON:", error);
+      alert("Failed to parse JSON");
     }
   };
 
@@ -61,7 +62,7 @@ function Home() {
             value="text"
             className="w-full flex items-center justify-center"
           >
-            <TextFile />
+            <TextFile setTextData={setTextData} />
           </TabsContent>
           <TabsContent
             value="pdf"
