@@ -5,20 +5,19 @@ import { useState, useContext } from "react";
 import { GeneralContext } from "@/context/GeneralContext";
 import api from "@/api/v1";
 
-function Textinput() {
+function Textinput({setTextData}) {
   const [data, setData] = useState(null);
   const { setLoading } = useContext(GeneralContext);
   const processData = async () => {
     try {
       setLoading(true);
       console.log("Processing data");
-      const response = await api.post("/generate", {
-        model: "llama3.1",
-        prompt: "what is the meaning of life?",
-        system: "give the response as a JSON",
-        stream: false,
-      });
-      console.log(response.data);
+      const request = {
+        text : data
+      };
+      const response = await api.post("/text", request);
+      console.log(response.data)
+      setTextData(response.data)
       setLoading(false);
     } catch (error) {
       console.log(error);
