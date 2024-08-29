@@ -33,7 +33,7 @@ function Textinput({setTextData}) {
         <Textarea
           id="text-input"
           name="text-input"
-          className="flex-1"
+          className="flex-1 bg-gray-100"
           onChange={(e) => setData(e.target.value)}
         />
       </div>

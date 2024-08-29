@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { GeneralContext } from "@/context/GeneralContext";
 
-function PdfFile({setTextData}) {
+function PdfFile({ setTextData }) {
   const [file, setFile] = useState(null);
   const [fileName, setFileName] = useState("No file selected");
   const { setLoading } = useContext(GeneralContext);
@@ -36,7 +36,7 @@ function PdfFile({setTextData}) {
           "Content-Type": "multipart/form-data",
         },
       });
-      setTextData(response.data)
+      setTextData(response.data);
       setLoading(false);
     } catch (error) {
       console.log(error);
@@ -46,21 +46,24 @@ function PdfFile({setTextData}) {
 
   return (
     <div className="flex flex-col p-8 gap-5 w-3/4 items-center justify-center">
-      <Label className="flex-1">Upload PDF file</Label>
-      <Input
-        type="file"
-        id="file-input"
-        name="file-input"
-        className="hidden"
-        accept=".pdf"
-        onChange={handleFileChange}
-      />
-      <Label
-        htmlFor="file-input"
-        className="flex-1 bg-blue-500 text-white p-2 rounded cursor-pointer text-center"
-      >
-        {fileName === "No file selected" ? "Upload a file" : fileName}
-      </Label>
+      <div className="flex gap-4 w-1/2 items-center justify-evenly">
+        <Label className="flex-1">Upload PDF file</Label>
+        <Input
+          type="file"
+          id="file-input"
+          name="file-input"
+          className="hidden"
+          accept=".pdf"
+          onChange={handleFileChange}
+        />
+        <Label
+          htmlFor="file-input"
+          className="flex-1 bg-blue-500 text-white p-2 rounded cursor-pointer text-center"
+        >
+          {fileName === "No file selected" ? "Upload a file" : fileName}
+        </Label>
+      </div>
+
       <Button onClick={processData}>Process</Button>
     </div>
   );

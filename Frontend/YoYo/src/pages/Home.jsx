@@ -17,7 +17,6 @@ function Home() {
       setJsonData((prevJsonData) => [...prevJsonData, direct]);
     } catch (error) {
       console.error("Failed to parse JSON:", error);
-      alert("Failed to parse JSON");
     }
   };
 
@@ -36,10 +35,10 @@ function Home() {
 
   return (
     <>
-      <div className="flex items-center justify-center flex-col p-12 gap-6">
+      <div className=" flex items-center justify-center w-full flex-col p-12 gap-6 my-12">
         <Tabs
           defaultValue="input"
-          className="w-full items-center justify-center"
+          className="items-center justify-center w-full"
         >
           <TabsList className="w-full gap-6">
             <TabsTrigger value="input" className="px-8">
@@ -72,7 +71,11 @@ function Home() {
           </TabsContent>
         </Tabs>
         <DownloadJson data={jsonData} />
-        <DataVisualization jsondata={jsonData} />
+        {jsonData.length > 0 ? (
+          <DataVisualization jsondata={jsonData} />
+        ) : (
+          "Data visualization will be available after processing the data"
+        )}
       </div>
     </>
   );

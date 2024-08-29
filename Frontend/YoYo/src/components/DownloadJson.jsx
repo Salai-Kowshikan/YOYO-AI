@@ -85,7 +85,7 @@ function DownloadJson({ data }) {
   };
 
   return (
-    <div className="flex flex-col items-center gap-4 bg-gray-100 p-4 w-3/4">
+    <div className="flex flex-col items-center gap-4 rounded-md bg-gray-100 p-4 w-3/4">
       <div className="flex justify-between w-full">
         <SelectType setFileType={setFileType} />
         <Button onClick={handleDownload} disabled={!data || data.length === 0}>

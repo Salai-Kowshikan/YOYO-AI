@@ -14,21 +14,54 @@ def split_text(text):
     
 
 def prompt(conversation):
+    json_example = (
+        "{"
+        "\"CustomerRequirements\": {"
+            "\"CarType\": [\"SUV\"], "
+            "\"FuelType\": [\"Diesel\"], "
+            "\"Color\": [\"White\"], "
+            "\"DistanceTravelled\": \"\", "
+            "\"MakeYear\": [2021], "
+            "\"Transmission Type\": [\"automatic\"]"
+        "}, "
+        "\"CompanyPolicies\": {"
+            "\"FreeRCTransfer\": false, "
+            "\"5-DayMoneyBackGuarantee\": true, "
+            "\"FreeRSAforOneYear\": false, "
+            "\"ReturnPolicy\": \"Registration process starts after 5 days\""
+        "}, "
+        "\"CustomerObjection\": ["
+            "\"RefurbishmentQuality\", "
+            "\"CarIssues\", "
+            "\"PriceIssues\", "
+            "\"CustomerExperienceIssues\""
+        "], "
+        "\"Extras\": {"
+            "\"Warranty\": ["
+                "\"1 year or 15,000 kilometers for engine and gearbox\", "
+                "\"3 months or 5,000 kilometers for AC and electricals\""
+            "], "
+            "\"TestDrive\": \"Can be arranged in the showroom or at home\", "
+            "\"HomeTestDriveAvailability\": \"May take a couple of days to schedule\""
+        "}"
+        "}"
+    )
+
     system_message = (
-    "The conversation provided involves a car dealing process and should be summarized into a standardized JSON format with the following keys: "
+    "The conversation provided involves a car dealing process and should be summarized into a standardized JSON format with the following keys and the values should be array of strings: "
     "1. Customer Requirements: Examples include CarType (Hatchback, SUV, Sedan), FuelType, Color, Distance Travelled, MakeYear, Transmission Type. "
     "2. Company Policies: Examples include FreeRCTransfer, 5-DayMoney Back Guarantee, FreeRSAfor One Year, Return Policy. "
     "3. Customer Objections: Examples include Refurbishment Quality, CarIssues, Price Issues, Customer Experience Issues (e.g., long wait time, salesperson behavior). "
     "4. Extras: Any other relevant information that can be valuable for the company, represented as an array of key-value pairs. "
     "The response should contain only the JSON data in a format that can be parsed using a JSON parser, following this structure: "
     "{\"Customer Requirements\": {...}, \"Company Policies\": {...}, \"Customer Objections\": {...}, \"Extras\": {...}} "
-    "Avoid including any introductory text such as 'Here is the summary' or 'The JSON is as follows.' Only the JSON output should be present."
+    "Avoid including any introductory text such as 'Here is the summary' or 'The JSON is as follows.' Only the JSON output should be present. here is an example"
     )
 
     prompt_data = {
         "model": "llama3.1",
         "prompt": conversation,
-        "system": system_message,
+        "system": system_message + json_example,
         "stream": False
     }
 
