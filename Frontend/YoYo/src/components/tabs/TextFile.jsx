@@ -38,7 +38,7 @@ function TextFile() {
     }
   };
   return (
-    <div className="flex flex-col gap-5 w-3/4 items-center justify-center">
+    <div className="flex flex-col p-8 gap-5 w-3/4 items-center justify-center">
       <Label className=" ">Upload text-files</Label>
       <Input
         type="file"

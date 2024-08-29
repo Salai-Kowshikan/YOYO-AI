@@ -1,4 +1,4 @@
-
+import DataVisualization from "@/components/datavis";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Textinput from "@/components/tabs/Textinput";
 import TextFile from "@/components/tabs/TextFile";
@@ -9,7 +9,7 @@ import { Piechart } from "@/components/ui/piechart";
 function Home() {
   return (
     <>
-      <div className="flex items-center justify-center flex-col p-12">
+      <div className="flex items-center justify-center flex-col p-12 gap-6">
         <Tabs
           defaultValue="input"
           className="w-full items-center justify-center"
@@ -35,8 +35,7 @@ function Home() {
             <PdfFile />
           </TabsContent>
         </Tabs>
-        <Bargraph  />
-        <Piechart />
+        <DataVisualization />
       </div>
     </>
   );
