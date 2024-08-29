@@ -1,82 +1,89 @@
-import * as React from "react";
-import { Label, Pie, PieChart, Sector,Cell } from "recharts";
-// import { PieSectorDataItem } from "recharts/types/polar/Pie";
-
+import React from "react";
+import {
+  PieChart,
+  Pie,
+  Cell,
+  Sector,
+  Label,
+  Tooltip as ChartTooltip,
+} from "recharts";
 import {
   Card,
-  CardContent,
-  CardDescription,
   CardHeader,
+  CardContent,
   CardTitle,
+  CardDescription,
 } from "@/components/ui/card";
 import {
-  ChartContainer,
-  ChartStyle,
-  ChartTooltip,
-  ChartTooltipContent,
-} from "@/components/ui/chart";
-import {
   Select,
-  SelectContent,
-  SelectItem,
   SelectTrigger,
   SelectValue,
+  SelectContent,
+  SelectItem,
 } from "@/components/ui/select";
 
-const chartConfig = {
-  Protocol: {
-    label: "Protocol",
-  },
-  desktop: {
-    label: "Desktop",
-  },
-  IPV4: {
-    label: "IPv4",
-    color: "#914F1E",
-  },
-  IPV6: {
-    label: "IPv6",
-    color: "#FFC107",
-  },
-};
+// Define colors for different types (you can customize these colors)
 const COLORS = {
-  IPv4: "hsl(var(--chart-2))",
-  IPv6: "hsl(var(--chart-5))"
+  White: "#8884d8",
+  Red: "#82ca9d",
+  Black: "#ffc658",
+  Blue: "#ff7300",
+  Green: "#ff0000",
+  Yellow: "#00ff00",
+  Purple: "#0000ff",
+  Orange: "#ff00ff",
+  Brown: "#00ffff",
+  Pink: "#ff0000",
+  Grey: "#00ff00",
+  Cyan: "#ff00ff",
+  // Add more colors as needed for other keys
 };
 
 export function Piechart({ data }) {
-  const [activeType, setActiveType] = React.useState(data && data.length > 0 ? data[0].type : '');
+  // Convert the data from object format to an array of objects
+  const chartData = React.useMemo(() => {
+    return Object.keys(data).map((key) => ({
+      type: key,
+      count: data[key],
+    }));
+  }, [data]);
+
+  const [activeType, setActiveType] = React.useState(
+    chartData.length > 0 ? chartData[0].type : ""
+  );
 
   const activeIndex = React.useMemo(() => {
-    if (!data || data.length === 0) return 0;
-    const index = data.findIndex((item) => item.type === activeType);
+    if (chartData.length === 0) return 0;
+    const index = chartData.findIndex((item) => item.type === activeType);
     return index >= 0 ? index : 0;
-  }, [activeType, data]);
+  }, [activeType, chartData]);
 
-  const types = React.useMemo(() => data ? data.map((item) => item.type) : [], [data]);
+  const types = React.useMemo(
+    () => chartData.map((item) => item.type),
+    [chartData]
+  );
 
   const chartConfig = React.useMemo(() => {
-    if (!data) return {};
-    return data.reduce((acc, item) => {
+    return chartData.reduce((acc, item) => {
       acc[item.type] = {
         label: item.type,
       };
       return acc;
     }, {});
-  }, [data]);
+  }, [chartData]);
 
-  console.table(data)
-  if (!data || data.length === 0) {
+  console.table(chartData);
+
+  if (chartData.length === 0) {
     return <div>No data available</div>;
   }
 
   return (
     <Card data-chart="pie-interactive" className="flex flex-col">
-      <ChartStyle id="pie-interactive" config={chartConfig} />
       <CardHeader className="flex-row items-start space-y-0 pb-0">
         <div className="grid gap-1">
           <CardTitle>Pie Chart</CardTitle>
-          <CardDescription>Packet Types Distribution</CardDescription>
+          <CardDescription>Distribution by Color</CardDescription>
         </div>
         <Select value={activeType} onValueChange={setActiveType}>
           <SelectTrigger
@@ -88,56 +95,39 @@ export function Piechart({ data }) {
           <SelectContent align="end" className="rounded-xl">
             {types.map((key) => {
               const config = chartConfig[key];
-
-              if (!config) {
-                return null;
-              }
-                console.log(key);
-                return (
-                  <SelectItem
-                    key={key}
-                    value={key}
-                    className="rounded-lg [&_span]:flex"
-                  >
-                    <div className="flex items-center gap-2 text-xs">
-                      <span
-                        className="flex h-3 w-3 shrink-0 rounded-sm"
-                        style={{
-                          backgroundColor: key === "IPv4" ? "hsl(var(--chart-2))" : key === "IPv6" ? "hsl(var(--chart-5))" : undefined
-                        }}
-                      />
-                      {config?.label}
-                    </div>
-                  </SelectItem>
-                );
+              if (!config) return null;
+              return (
+                <SelectItem
+                  key={key}
+                  value={key}
+                  className="rounded-lg [&_span]:flex"
+                >
+                  <div className="flex items-center gap-2 text-xs">
+                    <span
+                      className="flex h-3 w-3 shrink-0 rounded-sm"
+                      style={{
+                        backgroundColor: COLORS[key] || "#8884d8",
+                      }}
+                    />
+                    {config?.label}
+                  </div>
+                </SelectItem>
+              );
             })}
           </SelectContent>
         </Select>
       </CardHeader>
       <CardContent className="flex flex-1 justify-center pb-0">
-        <ChartContainer
-          id="pie-interactive"
-          config={chartConfig}
-          className="mx-auto aspect-square w-full max-w-[300px]"
-        >
-          <PieChart>
-            <ChartTooltip
-              cursor={false}
-              content={<ChartTooltipContent hideLabel />}
-            />
-
-            {console.log(data[0].type)}
-            {/* {console.log(dataKey)}  */}
+        <div className="mx-auto aspect-square w-full max-w-[300px]">
+          <PieChart width={300} height={300}>
+            <ChartTooltip cursor={false} content={<div />} />
             <Pie
-              data={data}
+              data={chartData}
               dataKey="count"
               nameKey="type"
               innerRadius={60}
+              outerRadius={100}
               strokeWidth={5}
-              //style={ {backgroundColor:"IPv4" ? "#914F1E" :  "IPv6" ? "#FFC107" : undefined}}
-
-              // fill={"IPv4" ? "#914F1E" : "#FFC107"}
-              // fill= {"IPv6" ? "#FFC107" : "#FFC107"}
               activeIndex={activeIndex}
               activeShape={({ outerRadius = 0, ...props }) => (
                 <g>
@@ -150,15 +140,19 @@ export function Piechart({ data }) {
                 </g>
               )}
             >
-              {data.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={COLORS[entry.type] || "#8884d8"} />
+              {chartData.map((entry, index) => (
+                <Cell
+                  key={`cell-${index}`}
+                  fill={COLORS[entry.type] || "#8884d8"}
+                />
               ))}
-
-                   
               <Label
                 content={({ viewBox }) => {
                   if (viewBox && "cx" in viewBox && "cy" in viewBox) {
-                    const count = (data[activeIndex] && data[activeIndex].count) || 0;
+                    const count =
+                      (chartData[activeIndex] &&
+                        chartData[activeIndex].count) ||
+                      0;
                     return (
                       <text
                         x={viewBox.cx}
@@ -178,7 +172,7 @@ export function Piechart({ data }) {
                           y={(viewBox.cy || 0) + 24}
                           className="fill-muted-foreground"
                         >
-                          Packets
+                          Colours
                         </tspan>
                       </text>
                     );
@@ -188,7 +182,7 @@ export function Piechart({ data }) {
               />
             </Pie>
           </PieChart>
-        </ChartContainer>
+        </div>
       </CardContent>
     </Card>
   );

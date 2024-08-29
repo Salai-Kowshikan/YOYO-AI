@@ -1,48 +1,107 @@
-import { useState, useEffect } from "react";
-import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts";
-import { ChartContainer } from "@/components/ui/chart";
-import { ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
-import { ChartLegend, ChartLegendContent } from "@/components/ui/chart";
-
-const chartConfig = {
-  Source: {
-    label: "Source",
-    color: "hsl(var(--chart-1))",
-  },
-  Destination: {
-    label: "Destination",
-    color: "hsl(var(--chart-5))",
-  },
-};
+import React, { useEffect } from "react";
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Cell,
+  ResponsiveContainer,
+} from "recharts";
+import {
+  Card,
+  CardHeader,
+  CardContent,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
 
 export function Bargraph({ data }) {
-  if (!data || data.length === 0) {
+  const COLORS = {
+    SUV: "#8884d8",
+    Sedan: "#82ca9d",
+    Hatchback: "#ffc658",
+  };
+
+  const barData = Object.keys(data).map((key) => ({
+    name: key,
+    value: data[key],
+  }));
+
+  // Extract unique car types from barData to filter COLORS
+  const displayedCarTypes = new Set(barData.map((item) => item.name));
+
+  const filteredColors = Object.entries(COLORS).filter(([key]) =>
+    displayedCarTypes.has(key)
+  );
+
+  if (barData.length === 0) {
     return <div>No data available</div>;
   }
 
+  useEffect(() => {
+    console.table(barData);
+  }, [barData]);
+
+  const renderCustomLegend = () => (
+    <div
+      style={{ display: "flex", justifyContent: "center", marginTop: "10px" }}
+    >
+      {filteredColors.map(([key, color]) => (
+        <div
+          key={key}
+          style={{ display: "flex", alignItems: "center", margin: "0 10px" }}
+        >
+          <div
+            style={{
+              width: 20,
+              height: 20,
+              backgroundColor: color,
+              marginRight: 5,
+            }}
+          />
+          <span>{key}</span>
+        </div>
+      ))}
+    </div>
+  );
+
   return (
-    <ChartContainer config={chartConfig} className="min-h-[200px] w-full">
-      <BarChart accessibilityLayer data={data}>
-        <CartesianGrid vertical={false} />
-        <XAxis
-          dataKey="IP"
-          tickLine={true}
-          tickMargin={20}
-          axisLine={false}
-          tickFormatter={(value) => value.slice(0, 14)}
-          label={{ value: "IP Address", position: "insideBottom", dy: -5 }}
-        />
-        <YAxis
-          tickLine={true}
-          tickMargin={10}
-          axisLine={false}
-          label={{ value: "Traffic", position: "centre", dy: 20 }}
-        />
-        <ChartTooltip content={<ChartTooltipContent />} />
-        <ChartLegend content={<ChartLegendContent />} />
-        <Bar dataKey="Source" fill="var(--color-Source)" radius={4} />
-        <Bar dataKey="Destination" fill="var(--color-Destination)" radius={4} />
-      </BarChart>
-    </ChartContainer>
+    <Card>
+      <CardHeader>
+        <CardTitle>Bar Graph</CardTitle>
+        <CardDescription>Car Type Preferences</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <ResponsiveContainer width="100%" height={300}>
+          <BarChart data={barData}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis
+              dataKey="name"
+              label={{ value: "Car Type", position: "insideBottom", dy: 8 }}
+            />
+            <YAxis
+              label={{
+                value: "Count",
+                angle: -90,
+                position: "insideLeft",
+                dx: 10,
+              }}
+            />
+            <Tooltip />
+            <Bar dataKey="value" radius={4}>
+              {barData.map((entry, index) => (
+                <Cell
+                  key={`cell-${index}`}
+                  fill={COLORS[entry.name] || "#8884d8"}
+                />
+              ))}
+            </Bar>
+          </BarChart>
+        </ResponsiveContainer>
+        {renderCustomLegend()}
+      </CardContent>
+    </Card>
   );
 }
